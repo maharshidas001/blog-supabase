@@ -4,6 +4,7 @@ import Logo from '@/assets/Logo.svg';
 import { Button } from '../ui/button';
 import { MenuIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 const Header = () => {
 
@@ -27,7 +28,12 @@ const Header = () => {
               <p className='font-medium text-sm cursor-pointer'>Blog</p>
               <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
               <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
-              <Button variant='outline'>Login</Button>
+              <SignedOut>
+                <Button variant='outline'>Login</Button>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
 
             <Button variant='ghost' className='p-0 sm:hidden'
