@@ -37,7 +37,7 @@ const Header = () => {
             </Button>
           </nav>
         </MaxContainer>
-        <div id='mobile-nav-menu' className='absolute w-full top-[44px] bg-white'
+        <div id='mobile-nav-menu' className='absolute hidden w-full top-[44px] bg-teal-50'
           style={{ height: 'calc(100vh - 44px)' }}
         >
           <div className='w-full flex flex-col items-center gap-5 mt-4'>
