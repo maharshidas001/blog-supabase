@@ -1,11 +1,12 @@
 import React from 'react';
-import { Hero } from '@/components';
+import { Hero, Posts } from '@/components';
 
 const Home = () => {
   return (
     <>
       <main id='home'>
         <Hero />
+        <Posts />
       </main>
     </>
   )
