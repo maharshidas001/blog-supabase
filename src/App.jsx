@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '@/components';
 import { Routes, Route } from 'react-router-dom';
-import { Home } from '@/pages';
+import { Home, Login } from '@/pages';
 
 const App = () => {
   return (
@@ -9,6 +9,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/auth/login' element={<Login />} />
       </Routes>
     </>
   )

@@ -17,7 +17,7 @@ const Header = () => {
     <>
       <header className='relative'>
         <MaxContainer>
-          <nav className='w-full py-1 sm:py-2 flex items-center justify-between'>
+          <nav className='w-full h-[56px] py-1 sm:py-2 flex items-center justify-between'>
             <Link to='/'>
               <div className="max-w-[100px]">
                 <img src={Logo} alt="NodeBlog Logo" />
@@ -29,7 +29,9 @@ const Header = () => {
               <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
               <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
               <SignedOut>
-                <Button variant='outline'>Login</Button>
+                <Link to='/auth/login'>
+                  <Button variant='outline'>Login</Button>
+                </Link>
               </SignedOut>
               <SignedIn>
                 <UserButton />
@@ -43,14 +45,21 @@ const Header = () => {
             </Button>
           </nav>
         </MaxContainer>
-        <div id='mobile-nav-menu' className='absolute hidden w-full top-[44px] bg-teal-50'
+        <div id='mobile-nav-menu' className='absolute hidden w-full top-[44px] bg-teal-50 z-50'
           style={{ height: 'calc(100vh - 44px)' }}
         >
           <div className='w-full flex flex-col items-center gap-5 mt-4'>
             <p className='font-medium text-sm cursor-pointer'>Blog</p>
             <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
             <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
-            <Button variant='outline' className='w-28'>Login</Button>
+            <SignedOut>
+              <Link to='/auth/login'>
+                <Button variant='outline' className='w-28'>Login</Button>
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </header>
