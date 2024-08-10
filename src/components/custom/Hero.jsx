@@ -2,6 +2,7 @@ import React from 'react';
 import { MaxContainer } from '../index';
 import { Button } from '../ui/button';
 import AssymetricParallel from '@/assets/Assymetric Parallel.svg';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -16,7 +17,9 @@ const Hero = () => {
                 className='relative hidden sm:block sm:-top-32 sm:-left-16'
               />
             </p>
-            <Button className='mt-5 mx-auto'>Explore Blogs</Button>
+            <Link to='/blogs'>
+              <Button className='mt-5 mx-auto w-52'>Explore Blogs</Button>
+            </Link>
           </div>
         </MaxContainer>
       </section>
