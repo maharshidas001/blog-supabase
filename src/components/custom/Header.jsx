@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MaxContainer } from '../index';
 import Logo from '@/assets/Logo.svg';
 import { Button } from '../ui/button';
@@ -7,6 +8,13 @@ import { Link } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 const Header = () => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    let mobileNavMenu = document.getElementById('mobile-nav-menu');
+    mobileNavMenu.classList.add('hidden');
+  }, [location.pathname]);
 
   const handleNavToggle = () => {
     let mobileNavMenu = document.getElementById('mobile-nav-menu');
@@ -27,7 +35,9 @@ const Header = () => {
             <div className='sm:flex items-center gap-3 hidden'>
               <p className='font-medium text-sm cursor-pointer'>Blog</p>
               <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
-              <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
+              <Link to='/create-post'>
+                <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
+              </Link>
               <SignedOut>
                 <Link to='/auth/login'>
                   <Button variant='outline'>Login</Button>
@@ -51,7 +61,9 @@ const Header = () => {
           <div className='w-full flex flex-col items-center gap-5 mt-4'>
             <p className='font-medium text-sm cursor-pointer'>Blog</p>
             <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
-            <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
+            <Link to='/create-post'>
+              <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
+            </Link>
             <SignedOut>
               <Link to='/auth/login'>
                 <Button variant='outline' className='w-28'>Login</Button>
