@@ -3,6 +3,7 @@ import MaxContainer from './custom/MaxContainer';
 import Hero from "./custom/Hero";
 import Posts from "./custom/Posts";
 import Card from "./custom/Card";
+import NewPost from "./custom/NewPost";
 
 export {
   Header,
@@ -10,4 +11,5 @@ export {
   Hero,
   Posts,
   Card,
+  NewPost,
 };
