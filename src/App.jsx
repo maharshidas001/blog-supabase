@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '@/components';
 import { Routes, Route } from 'react-router-dom';
-import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost } from '@/pages';
+import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard } from '@/pages';
 
 const App = () => {
   return (
@@ -13,6 +13,7 @@ const App = () => {
         <Route path='/create-post' element={<CreatePost />} />
         <Route path='/blogs' element={<AllPosts />} />
         <Route path='/post/:postSlug' element={<SinglePost />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>

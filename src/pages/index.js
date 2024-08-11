@@ -4,6 +4,7 @@ import CreatePost from "./CreatePost";
 import AllPosts from "./AllPosts";
 import NotFound from "./NotFound";
 import SinglePost from "./SinglePost";
+import Dashboard from "./Dashboard";
 
 export {
   Home,
@@ -11,5 +12,6 @@ export {
   CreatePost,
   AllPosts,
   NotFound,
-  SinglePost
+  SinglePost,
+  Dashboard
 };

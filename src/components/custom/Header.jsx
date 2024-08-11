@@ -63,7 +63,9 @@ const Header = () => {
               <Link to='/auth/login'>
                 <Button variant='outline' className='w-28'>Login</Button>
               </Link>) : (<>
-                <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
+                <Link to='/dashboard'>
+                  <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
+                </Link>
                 <Link to='/create-post'>
                   <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
                 </Link>
