@@ -11,7 +11,7 @@ import { Plus } from 'lucide-react';
 const Header = () => {
 
   const location = useLocation();
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, user } = useUser();
 
   useEffect(() => {
     let mobileNavMenu = document.getElementById('mobile-nav-menu');
@@ -35,8 +35,8 @@ const Header = () => {
             </Link>
 
             <div className='sm:flex items-center gap-3 hidden'>
-              <p className='font-medium text-sm cursor-pointer'>Blog</p>
-              {!isSignedIn && isLoaded ? (<Link to='/auth/login'>
+              <Link to='/blogs'><p className='font-medium text-sm cursor-pointer'>Blog</p></Link>
+              {!isSignedIn && isLoaded ? (<Link to='/login'>
                 <Button variant='outline'>Login</Button>
               </Link>) : (<>
                 <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
@@ -59,18 +59,16 @@ const Header = () => {
         >
           <div className='w-full flex flex-col items-center gap-5 mt-4'>
             <p className='font-medium text-sm cursor-pointer'>Blog</p>
-            <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
-            <Link to='/create-post'>
-              <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
-            </Link>
-            <SignedOut>
+            {!isSignedIn && isLoaded ? (
               <Link to='/auth/login'>
                 <Button variant='outline' className='w-28'>Login</Button>
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+              </Link>) : (<>
+                <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
+                <Link to='/create-post'>
+                  <p className='font-medium text-sm cursor-pointer'>Write a Blog</p>
+                </Link>
+                <UserButton />
+              </>)}
           </div>
         </div>
       </header>

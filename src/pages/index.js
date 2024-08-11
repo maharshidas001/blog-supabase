@@ -3,6 +3,7 @@ import Login from "./Login";
 import CreatePost from "./CreatePost";
 import AllPosts from "./AllPosts";
 import NotFound from "./NotFound";
+import SinglePost from "./SinglePost";
 
 export {
   Home,
@@ -10,4 +11,5 @@ export {
   CreatePost,
   AllPosts,
   NotFound,
+  SinglePost
 };
