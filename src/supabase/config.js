@@ -59,10 +59,10 @@ class SupabseService {
     }
   };
 
-  updatePost = async (slug, { title, content, authorId, image }) => {
+  updatePost = async (slug, { title, content, image }) => {
     try {
       const { status, error } = await supabaseClient.from('articles').update({
-        title, content, authorId, image
+        title, content, image
       }).eq('slug', slug);
       if (status == 204) {
         return true;
