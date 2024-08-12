@@ -1,15 +1,18 @@
 import { MaxContainer } from '@/components';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import supabaseService from '@/supabase/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSinglePost, setLoading } from '@/toolkit/slices/postSlice';
 import toast from 'react-hot-toast';
+import { Button } from '@/components/ui/button';
+import { PencilIcon, TrashIcon } from 'lucide-react';
 
 const SinglePost = () => {
 
   const { postSlug } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     supabaseService.getPostById(postSlug)
@@ -25,6 +28,12 @@ const SinglePost = () => {
   }, []);
 
   const { singlePost, isLoading } = useSelector(state => state.post);
+  const { user } = useSelector(state => state.auth);
+
+  const handleUpdatePost = () => {
+    navigate('/update-post');
+  };
+  const handleDeletePost = () => { };
 
   return (
     <>
@@ -42,10 +51,10 @@ const SinglePost = () => {
               <div className='inline-grid gap-2 mt-4'>
                 {singlePost.content}
               </div>
-              {/* {isAuthor && <div className='flex gap-2 mt-1'>
-                <Button className='w-full'><PencilIcon /></Button>
+              {user.id === singlePost.authorId && <div className='flex gap-2 mt-1'>
+                <Button className='w-full' onClick={handleUpdatePost}><PencilIcon /></Button>
                 <Button className='w-full bg-red-600 hover:bg-red-500' onClick={handleDeletePost}><TrashIcon /></Button>
-              </div>} */}
+              </div>}
             </>}
           </div>
         </MaxContainer>

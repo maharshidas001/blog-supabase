@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Header, Protected } from '@/components';
 import { Routes, Route } from 'react-router-dom';
-import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard, Signup } from '@/pages';
+import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard, Signup, UpdatePost } from '@/pages';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './toolkit/slices/authSlice';
 import { useUser } from '@clerk/clerk-react';
@@ -29,6 +29,7 @@ const App = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/blogs' element={<AllPosts />} />
         <Route path='/post/:postSlug' element={<SinglePost />} />
+        <Route path='/update-post' element={<UpdatePost />} />
         <Route element={<Protected />}>
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/dashboard' element={<Dashboard />} />

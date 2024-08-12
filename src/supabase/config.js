@@ -45,18 +45,16 @@ class SupabseService {
         authorName
       }).select();
       if (error) {
-        console.log('Create Post' + error.message);
         throw new Error(error);
       } return data;
     } catch (error) {
-      console.log('Create Post' + error.message);
       throw new Error(error);
     }
   };
 
   updatePost = async (slug, { title, content, image }) => {
     try {
-      const { error } = await supabaseClient.from('articles').update({
+      const { data, error } = await supabaseClient.from('articles').update({
         title, content, image
       }).eq('slug', slug);
       if (error) {

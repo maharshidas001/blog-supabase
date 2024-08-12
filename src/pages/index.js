@@ -6,6 +6,7 @@ import NotFound from "./NotFound";
 import SinglePost from "./SinglePost";
 import Dashboard from "./Dashboard";
 import Signup from "./Signup";
+import UpdatePost from "./UpdatePost";
 
 export {
   Home,
@@ -15,5 +16,6 @@ export {
   NotFound,
   SinglePost,
   Dashboard,
-  Signup
+  Signup,
+  UpdatePost,
 };
