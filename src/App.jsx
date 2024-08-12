@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header, Protected } from '@/components';
 import { Routes, Route } from 'react-router-dom';
 import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard, Signup } from '@/pages';
+import { useDispatch } from 'react-redux';
+import { login, logout } from './toolkit/slices/authSlice';
+import { useUser } from '@clerk/clerk-react';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  const { user, isSignedIn } = useUser();
+  useEffect(() => {
+    console.log(isSignedIn);
+    if (!isSignedIn) {
+      dispatch(logout());
+    } else if (isSignedIn) {
+      dispatch(login({ isSignedIn, user: user.id }));
+    }
+  }, [isSignedIn]);
+
   return (
     <>
       <Header />

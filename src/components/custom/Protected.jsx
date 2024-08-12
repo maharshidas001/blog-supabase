@@ -1,10 +1,11 @@
-import { useUser } from "@clerk/clerk-react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Protected = () => {
-  const { isLoaded, isSignedIn } = useUser();
 
-  return !isSignedIn && isLoaded ? <Navigate to='/login' /> : <Outlet />;
+  const { isSignedIn } = useSelector(state => state.auth);
+
+  return !isSignedIn ? <Navigate to='/login' /> : <Outlet />;
 }
 
 export default Protected;
