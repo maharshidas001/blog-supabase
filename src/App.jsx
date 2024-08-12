@@ -11,11 +11,10 @@ const App = () => {
 
   const { user, isSignedIn } = useUser();
   useEffect(() => {
-    console.log(isSignedIn);
     if (!isSignedIn) {
       dispatch(logout());
     } else if (isSignedIn) {
-      dispatch(login({ isSignedIn, user: user.id }));
+      dispatch(login({ isSignedIn, user: { id: user.id, name: user.fullName } }));
     }
   }, [isSignedIn]);
 

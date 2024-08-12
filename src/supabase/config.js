@@ -40,14 +40,15 @@ class SupabseService {
     }
   };
 
-  createPost = async ({ title, slug, content, authorId, image, status }) => {
+  createPost = async ({ title, slug, content, authorId, image, postStatus, authorName }) => {
     try {
       const { data, status, error } = await supabaseClient.from('articles').insert({
         title,
         slug,
         content,
         authorId,
-        image, status
+        image, postStatus,
+        authorName
       }).select();
       if (data && status == 201) {
         return data;
@@ -59,10 +60,10 @@ class SupabseService {
     }
   };
 
-  updatePost = async (slug, { title, content, image, status }) => {
+  updatePost = async (slug, { title, content, image, postStatus }) => {
     try {
       const { status, error } = await supabaseClient.from('articles').update({
-        title, content, image, status
+        title, content, image, postStatus
       }).eq('slug', slug);
       if (status == 204) {
         return true;
@@ -104,7 +105,21 @@ class SupabseService {
   };
 
   getImageUrl = ({ imagePath }) => {
-    return supabaseClient.storage.from('images').getPublicUrl(imagePath).publicUrl;
+    const { data } = supabaseClient.storage.from('images').getPublicUrl(imagePath);
+    return data;
+  };
+
+  deleteFile = async ({ file }) => {
+    try {
+      const { data, error } = await supabaseClient.storage.from('images').remove([`postimages/${file.name}`]);
+      if (data) {
+        return data;
+      } else if (error) {
+        throw new Error(error);
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 }
 
