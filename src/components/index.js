@@ -4,6 +4,7 @@ import Hero from "./custom/Hero";
 import Posts from "./custom/Posts";
 import Card from "./custom/Card";
 import NewPost from "./custom/NewPost";
+import Protected from "./custom/Protected";
 
 export {
   Header,
@@ -12,4 +13,5 @@ export {
   Posts,
   Card,
   NewPost,
+  Protected,
 };

@@ -39,7 +39,9 @@ const Header = () => {
               {!isSignedIn && isLoaded ? (<Link to='/login'>
                 <Button variant='outline'>Login</Button>
               </Link>) : (<>
-                <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
+                <Link to='/dashboard'>
+                  <p className='font-medium text-sm cursor-pointer'>Dashboard</p>
+                </Link>
                 <Link to='/create-post'>
                   <Button className='font-medium text-sm cursor-pointer'><Plus size={15} className='mr-2' /> Write a Blog</Button>
                 </Link>
