@@ -5,7 +5,6 @@ import supabaseService from '@/supabase/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSinglePost, setLoading } from '@/toolkit/slices/postSlice';
 import toast from 'react-hot-toast';
-import parse from 'html-react-parser';
 
 const SinglePost = () => {
 
@@ -43,6 +42,10 @@ const SinglePost = () => {
               <div className='inline-grid gap-2 mt-4'>
                 {singlePost.content}
               </div>
+              {/* {isAuthor && <div className='flex gap-2 mt-1'>
+                <Button className='w-full'><PencilIcon /></Button>
+                <Button className='w-full bg-red-600 hover:bg-red-500' onClick={handleDeletePost}><TrashIcon /></Button>
+              </div>} */}
             </>}
           </div>
         </MaxContainer>

@@ -1,17 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
 import supabaseService from '@/supabase/config';
+import toast from 'react-hot-toast';
 
 const NewPost = ({ post = null }) => {
 
@@ -20,9 +14,6 @@ const NewPost = ({ post = null }) => {
   const [slug, setSlug] = useState('');
   const [postImage, setPostImage] = useState(null);
 
-  const statusValueSet = (e) => {
-    setStatus(e.target.value);
-  };
 
   const postImageValueSet = (e) => {
     setPostImage(e.target.files[0]);
@@ -54,7 +45,9 @@ const NewPost = ({ post = null }) => {
         authorId: user.id,
         authorName: user.name
       })
-      // Toast on Created
+      if (createdPost) {
+        toast('Post Created.');
+      }
     };
     // }
   };

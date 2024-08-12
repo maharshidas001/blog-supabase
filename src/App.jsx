@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Toaster />
+      <Toaster position='bottom-right' toastOptions={{ duration: 1500 }} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
