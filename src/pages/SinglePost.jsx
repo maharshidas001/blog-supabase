@@ -51,10 +51,12 @@ const SinglePost = () => {
               <div className='inline-grid gap-2 mt-4'>
                 {singlePost.content}
               </div>
-              {user.id === singlePost.authorId && <div className='flex gap-2 mt-1'>
-                <Button className='w-full' onClick={handleUpdatePost}><PencilIcon /></Button>
-                <Button className='w-full bg-red-600 hover:bg-red-500' onClick={handleDeletePost}><TrashIcon /></Button>
-              </div>}
+              {user && <>
+                {user.id === singlePost.authorId && <div className='flex gap-2 mt-1'>
+                  <Button className='w-full' onClick={handleUpdatePost}><PencilIcon /></Button>
+                  <Button className='w-full bg-red-600 hover:bg-red-500' onClick={handleDeletePost}><TrashIcon /></Button>
+                </div>}
+              </>}
             </>}
           </div>
         </MaxContainer>
