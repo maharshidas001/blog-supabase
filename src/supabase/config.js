@@ -3,12 +3,10 @@ import { supabaseClient } from "./client";
 class SupabseService {
   getAllPosts = async () => {
     try {
-      const { data, error, status } = await supabaseClient.from('articles').select('*').eq('status', true);
-      if (data && status == 200) {
-        return data;
-      } else if (error) {
+      const { data, error } = await supabaseClient.from('articles').select('*').eq('status', true);
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }
@@ -16,12 +14,10 @@ class SupabseService {
 
   getPostById = async (slug) => {
     try {
-      const { data, error, status } = await supabaseClient.from('articles').select('*').eq('slug', slug);
-      if (data && status == 200) {
-        return data;
-      } else if (error) {
+      const { data, error, } = await supabaseClient.from('articles').select('*').eq('slug', slug);
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }
@@ -29,48 +25,46 @@ class SupabseService {
 
   getPostsByAuthor = async (authorId) => {
     try {
-      const { data, error, status } = await supabaseClient.from('articles').select('*').eq('authorId', authorId);
-      if (data && status == 200) {
-        return data;
-      } else if (error) {
+      const { data, error } = await supabaseClient.from('articles').select('*').eq('authorId', authorId);
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  createPost = async ({ title, slug, content, authorId, image, postStatus, authorName }) => {
+  createPost = async ({ title, slug, content, authorId, image, authorName }) => {
     try {
-      const { data, status, error } = await supabaseClient.from('articles').insert({
+      const { data, error } = await supabaseClient.from('articles').insert({
         title,
         slug,
         content,
         authorId,
-        image, postStatus,
+        image,
         authorName
       }).select();
-      if (data && status == 201) {
-        return data;
-      } else if (error) {
+      if (error) {
+        console.log('Create Post' + error.message);
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
+      console.log('Create Post' + error.message);
       throw new Error(error);
     }
   };
 
-  updatePost = async (slug, { title, content, image, postStatus }) => {
+  updatePost = async (slug, { title, content, image }) => {
     try {
-      const { status, error } = await supabaseClient.from('articles').update({
-        title, content, image, postStatus
+      const { error } = await supabaseClient.from('articles').update({
+        title, content, image
       }).eq('slug', slug);
-      if (status == 204) {
-        return true;
-      } else if (error) {
+      if (error) {
+        console.log('Update Post' + error);
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
+      console.log('Update Post' + error);
       throw new Error(error);
     }
   };
@@ -78,11 +72,9 @@ class SupabseService {
   deletePost = async (slug) => {
     try {
       const { status, error } = await supabaseClient.from('articles').delete().eq('slug', slug);
-      if (status == 204) {
-        return true;
-      } else if (error) {
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }
@@ -94,11 +86,9 @@ class SupabseService {
         cacheControl: '3600',
         upsert: false
       });
-      if (data && data.path) {
-        return data;
-      } else if (error) {
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }
@@ -112,11 +102,9 @@ class SupabseService {
   deleteFile = async ({ file }) => {
     try {
       const { data, error } = await supabaseClient.storage.from('images').remove([`postimages/${file.name}`]);
-      if (data) {
-        return data;
-      } else if (error) {
+      if (error) {
         throw new Error(error);
-      }
+      } return data;
     } catch (error) {
       throw new Error(error);
     }

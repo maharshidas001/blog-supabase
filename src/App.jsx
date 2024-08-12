@@ -5,6 +5,7 @@ import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard, Sig
 import { useDispatch } from 'react-redux';
 import { login, logout } from './toolkit/slices/authSlice';
 import { useUser } from '@clerk/clerk-react';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const App = () => {
   return (
     <>
       <Header />
+      <Toaster />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />

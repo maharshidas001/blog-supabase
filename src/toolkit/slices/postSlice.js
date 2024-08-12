@@ -11,11 +11,10 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     setAllPosts: (state, action) => {
-      state.allPosts.push(action.payload.allPosts);
+      state.allPosts = action.payload.allPosts;
     },
     setSinglePost: (state, action) => {
-      state.singlePost = [];
-      state.singlePost.push(action.payload.singlePost);
+      state.singlePost = action.payload.singlePost;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;

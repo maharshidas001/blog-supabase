@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { TrashIcon, PencilIcon } from 'lucide-react';
 
-const Card = ({ isAuthor = false }) => {
+const Card = ({ post, isAuthor = false }) => {
   return (
     <>
       <div className='border max-w-[340px] p-2 rounded'>
-        <Link to='/post/slug'>
+        <Link to={`/post/${post.slug}`}>
           <div className='h-[180px] max-w-full rounded cursor-pointer'>
-            <img src={Travel} alt="" className='w-full' />
+            <img src={post.image} alt="" className='w-full' />
           </div>
         </Link>
         <div className='mt-1'>
-          <Link to='/post/slug'>
-            <p className='font-semibold cursor-pointer'>The post title which written in vs code text editor</p>
+          <Link to={`/post/${post.slug}`}>
+            <p className='font-semibold cursor-pointer'>{post.title}</p>
           </Link>
         </div>
         {isAuthor && <div className='flex gap-2 mt-1'>
