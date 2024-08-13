@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useUser } from "@clerk/clerk-react";
 
 const Protected = () => {
 
-  const { isSignedIn } = useSelector(state => state.auth);
+  const { isSignedIn } = useUser();
 
   return !isSignedIn ? <Navigate to='/login' /> : <Outlet />;
 }

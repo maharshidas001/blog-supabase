@@ -69,7 +69,7 @@ class SupabseService {
 
   deletePost = async (slug) => {
     try {
-      const { error } = await supabaseClient.from('articles').delete().eq('slug', slug);
+      const { data, error } = await supabaseClient.from('articles').delete().eq('slug', slug).select();
       if (error) {
         throw new Error(error);
       } return data;

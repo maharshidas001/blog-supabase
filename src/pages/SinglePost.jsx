@@ -33,7 +33,19 @@ const SinglePost = () => {
   const handleUpdatePost = () => {
     navigate('/update-post');
   };
-  const handleDeletePost = () => { };
+  const handleDeletePost = () => {
+    supabaseService.deletePost(postSlug)
+      .then(res => {
+        navigate('/dashboard');
+        dispatch(setSinglePost([]));
+      })
+      .catch(error => {
+        if (error) {
+          toast('Cannot delete the post');
+          console.log(error);
+        }
+      })
+  };
 
   return (
     <>
@@ -41,7 +53,7 @@ const SinglePost = () => {
         <MaxContainer>
           <div className='flex flex-col items-center'>
             {isLoading && <p>Loading...</p>}
-            {!isLoading && <>
+            {(!isLoading && singlePost) && <>
               <h1 className='text-5xl font-bold sm:text-center'
                 style={{ fontFamily: 'DM Sans, sans-serif' }}
               >{singlePost.title}</h1>
