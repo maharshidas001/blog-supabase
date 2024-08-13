@@ -52,24 +52,24 @@ class SupabseService {
     }
   };
 
-  updatePost = async (slug, { title, content, image }) => {
+  updatePost = async (id, { title, slug, content, image }) => {
     try {
       const { data, error } = await supabaseClient.from('articles').update({
-        title, content, image
-      }).eq('slug', slug);
+        title, slug, content, image
+      }).eq('id', id).select();
       if (error) {
-        console.log('Update Post' + error);
+        console.log('Update Post ' + error);
         throw new Error(error);
       } return data;
     } catch (error) {
-      console.log('Update Post' + error);
+      console.log('Update Post ' + error);
       throw new Error(error);
     }
   };
 
   deletePost = async (slug) => {
     try {
-      const { status, error } = await supabaseClient.from('articles').delete().eq('slug', slug);
+      const { error } = await supabaseClient.from('articles').delete().eq('slug', slug);
       if (error) {
         throw new Error(error);
       } return data;

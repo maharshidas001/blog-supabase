@@ -22,7 +22,7 @@ const EditPost = ({ post }) => {
   const submitPost = async (e) => {
     e.preventDefault();
     if (postImage == null) {
-      const updatedPost = await supabaseService.updatePost(slug, { title, slug, content });
+      const updatedPost = await supabaseService.updatePost(post.id, { title, slug, content });
       if (updatedPost) {
         toast('Post Updated');
       }
