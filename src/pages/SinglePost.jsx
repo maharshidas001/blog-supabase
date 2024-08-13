@@ -36,13 +36,13 @@ const SinglePost = () => {
   const handleDeletePost = () => {
     supabaseService.deletePost(postSlug)
       .then(res => {
-        navigate('/dashboard');
+        navigate('/');
         dispatch(setSinglePost([]));
+        toast('Post Deleted');
       })
       .catch(error => {
         if (error) {
           toast('Cannot delete the post');
-          console.log(error);
         }
       })
   };

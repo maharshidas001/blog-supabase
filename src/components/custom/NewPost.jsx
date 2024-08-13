@@ -23,20 +23,10 @@ const NewPost = ({ post = null }) => {
 
   const submitPost = async (e) => {
     e.preventDefault();
-    // if (post) {
-    //   const file = await supabaseService.uploadFile({ file: postImage });
-    //   if (file) {
-    //     supabaseService.deleteFile({ file: file.path });
-    //   }
-    //   const filePath = supabaseService.getImageUrl({ imagePath: file.path });
-    //   const updatedPost = await supabaseService.updatePost(post.slug, { title, content, postStatus: true, image: filePath.publicUrl });
-    //   // Toast on updated
-    // } else {
-    const file = await supabaseService.uploadFile({ file: postImage });
 
+    const file = await supabaseService.uploadFile({ file: postImage });
     if (file) {
       const filePath = supabaseService.getImageUrl({ imagePath: file.path });
-      console.log(filePath);
       const createdPost = await supabaseService.createPost({
         title,
         content,
@@ -49,7 +39,6 @@ const NewPost = ({ post = null }) => {
         toast('Post Created.');
       }
     };
-    // }
   };
 
   const slugTransform = (value) => {

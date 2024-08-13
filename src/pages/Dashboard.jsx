@@ -11,16 +11,18 @@ const Dashboard = () => {
   const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
-    supabaseService.getPostsByAuthor(user.id)
-      .then(res => {
-        dispatch(setLoading(true));
-        dispatch(setAuthorPost({ authorPost: res }));
-        dispatch(setLoading(false));
-      })
-      .catch(error => {
-        dispatch(setLoading(false));
-        toast(error);
-      });
+    if (user) {
+      supabaseService.getPostsByAuthor(user.id)
+        .then(res => {
+          dispatch(setLoading(true));
+          dispatch(setAuthorPost({ authorPost: res }));
+          dispatch(setLoading(false));
+        })
+        .catch(error => {
+          dispatch(setLoading(false));
+          toast(error);
+        });
+    }
   });
 
   const { authorPost, isLoading } = useSelector(state => state.post);

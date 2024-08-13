@@ -58,11 +58,9 @@ class SupabseService {
         title, slug, content, image
       }).eq('id', id).select();
       if (error) {
-        console.log('Update Post ' + error);
         throw new Error(error);
       } return data;
     } catch (error) {
-      console.log('Update Post ' + error);
       throw new Error(error);
     }
   };

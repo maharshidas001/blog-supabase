@@ -5,13 +5,13 @@ import Logo from '@/assets/Logo.svg';
 import { Button } from '../ui/button';
 import { MenuIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { useAuth, UserButton } from "@clerk/clerk-react";
 import { Plus } from 'lucide-react';
 
 const Header = () => {
 
   const location = useLocation();
-  const { isSignedIn, isLoaded, user } = useUser();
+  const { isSignedIn, isLoaded } = useAuth();
 
   useEffect(() => {
     let mobileNavMenu = document.getElementById('mobile-nav-menu');
@@ -36,7 +36,7 @@ const Header = () => {
 
             <div className='sm:flex items-center gap-3 hidden'>
               <Link to='/blogs'><p className='font-medium text-sm cursor-pointer'>Blog</p></Link>
-              {!isSignedIn && isLoaded ? (<Link to='/login'>
+              {isLoaded && !isSignedIn ? (<Link to='/login'>
                 <Button variant='outline'>Login</Button>
               </Link>) : (<>
                 <Link to='/dashboard'>
@@ -60,9 +60,11 @@ const Header = () => {
           style={{ height: 'calc(100vh - 44px)' }}
         >
           <div className='w-full flex flex-col items-center gap-5 mt-4'>
-            <p className='font-medium text-sm cursor-pointer'>Blog</p>
-            {!isSignedIn && isLoaded ? (
-              <Link to='/auth/login'>
+            <Link to='/blogs'>
+              <p className='font-medium text-sm cursor-pointer'>Blog</p>
+            </Link>
+            {isLoaded && !isSignedIn ? (
+              <Link to='/login'>
                 <Button variant='outline' className='w-28'>Login</Button>
               </Link>) : (<>
                 <Link to='/dashboard'>

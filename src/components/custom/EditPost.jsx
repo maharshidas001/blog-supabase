@@ -3,17 +3,18 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
-import { useSelector } from 'react-redux';
 import supabaseService from '@/supabase/config';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const EditPost = ({ post }) => {
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
   const [slug, setSlug] = useState(post.slug);
   const [postImage, setPostImage] = useState(null);
-
 
   const postImageValueSet = (e) => {
     setPostImage(e.target.files[0]);
@@ -25,6 +26,7 @@ const EditPost = ({ post }) => {
       const updatedPost = await supabaseService.updatePost(post.id, { title, slug, content });
       if (updatedPost) {
         toast('Post Updated');
+        navigate(`/post/${slug}`);
       }
     } else {
       const file = await supabaseService.uploadFile({ file: postImage });
@@ -35,6 +37,7 @@ const EditPost = ({ post }) => {
       const updatedPost = await supabaseService.updatePost(slug, { title, slug, content, image: filePath.publicUrl });
       if (updatedPost) {
         toast('Post Updated');
+        navigate(`/post/${slug}`);
       }
     }
   };

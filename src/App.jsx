@@ -4,17 +4,19 @@ import { Routes, Route } from 'react-router-dom';
 import { AllPosts, CreatePost, Home, Login, NotFound, SinglePost, Dashboard, Signup, UpdatePost } from '@/pages';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './toolkit/slices/authSlice';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, useAuth } from '@clerk/clerk-react';
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const { user, isSignedIn } = useUser();
+  const { user } = useUser();
+  const { isSignedIn, isLoaded } = useAuth();
+
   useEffect(() => {
-    if (!isSignedIn) {
+    if (isLoaded && !isSignedIn) {
       dispatch(logout());
-    } else if (isSignedIn) {
+    } else if (isLoaded && isSignedIn) {
       dispatch(login({ isSignedIn, user: { id: user.id, name: user.fullName } }));
     }
   }, [isSignedIn]);
@@ -23,7 +25,8 @@ const App = () => {
     <>
       <Header />
       <Toaster position='bottom-right' toastOptions={{ duration: 1500 }} />
-      <Routes>
+      {!isLoaded && <p>Loading...</p>}
+      {isLoaded && <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
@@ -35,7 +38,7 @@ const App = () => {
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
         <Route path='*' element={<NotFound />} />
-      </Routes>
+      </Routes>}
     </>
   )
 }
