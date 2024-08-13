@@ -45,6 +45,19 @@ const SinglePost = () => {
           toast('Cannot delete the post');
         }
       })
+
+    supabaseService.deleteFile({ file: singlePost.image.split('/')[singlePost.image.split('/').length - 1] })
+      .then(res => {
+        if (res) {
+          toast('Existing image deleted');
+          return;
+        }
+      })
+      .catch(error => {
+        if (error) {
+          toast('Error: Cannot deleted the existing image');
+        }
+      });
   };
 
   return (

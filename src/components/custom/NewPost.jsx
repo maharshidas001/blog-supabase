@@ -6,8 +6,11 @@ import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
 import supabaseService from '@/supabase/config';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-const NewPost = ({ post = null }) => {
+const NewPost = () => {
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -27,7 +30,7 @@ const NewPost = ({ post = null }) => {
     const file = await supabaseService.uploadFile({ file: postImage });
     if (file) {
       const filePath = supabaseService.getImageUrl({ imagePath: file.path });
-      const createdPost = await supabaseService.createPost({
+      supabaseService.createPost({
         title,
         content,
         slug,
@@ -35,9 +38,19 @@ const NewPost = ({ post = null }) => {
         authorId: user.id,
         authorName: user.name
       })
-      if (createdPost) {
-        toast('Post Created.');
-      }
+        .then(res => {
+          if (res) {
+            toast('Post Created.');
+            navigate(`/post/${slug}`);
+          }
+        })
+        .catch(error => {
+          if (error.message.includes('repeat')) {
+            toast('Error: That image already exits');
+          } else {
+            toast('Error: All fieds are reqired');
+          }
+        });
     };
   };
 

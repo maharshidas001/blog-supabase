@@ -16,6 +16,7 @@ const EditPost = ({ post }) => {
   const [slug, setSlug] = useState(post.slug);
   const [postImage, setPostImage] = useState(null);
 
+
   const postImageValueSet = (e) => {
     setPostImage(e.target.files[0]);
   };
@@ -28,17 +29,34 @@ const EditPost = ({ post }) => {
         toast('Post Updated');
         navigate(`/post/${slug}`);
       }
-    } else {
+    } else if (postImage !== null) {
+      supabaseService.deleteFile({ file: post.image.split('/')[post.image.split('/').length - 1] })
+        .then(res => {
+          if (res) {
+            toast('Existing image deleted');
+            return;
+          }
+        })
+        .catch(error => {
+          if (error) {
+            toast('Error: Cannot deleted the existing image');
+          }
+        });
+
       const file = await supabaseService.uploadFile({ file: postImage });
-      if (file) {
-        supabaseService.deleteFile({ file: file.path });
-      }
       const filePath = supabaseService.getImageUrl({ imagePath: file.path });
-      const updatedPost = await supabaseService.updatePost(slug, { title, slug, content, image: filePath.publicUrl });
-      if (updatedPost) {
-        toast('Post Updated');
-        navigate(`/post/${slug}`);
-      }
+      supabaseService.updatePost(post.id, { title, slug, content, image: filePath.publicUrl })
+        .then(res => {
+          if (res) {
+            toast('Post Updated');
+            navigate(`/post/${slug}`);
+          }
+        })
+        .catch(error => {
+          if (error.message.includes('repeat')) {
+            toast('Error: That image already exits');
+          }
+        });
     }
   };
 
@@ -61,7 +79,7 @@ const EditPost = ({ post }) => {
             <Input placeholder='Slug...' value={slug} className='font-medium' id='slug' readOnly />
           </div>
           <div>
-            <Label htmlFor='post-image'>Image</Label>
+            <Label htmlFor='post-image'>Image <span className='text-gray-500'>(This post already have a image, you can change if you want to)</span></Label>
             <Input type='file' className='font-medium' id='post-image' accept='image/png, image/jpg, image/jpeg' onChange={postImageValueSet} readOnly />
           </div>
           <div>

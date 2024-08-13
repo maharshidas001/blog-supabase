@@ -97,7 +97,7 @@ class SupabseService {
 
   deleteFile = async ({ file }) => {
     try {
-      const { data, error } = await supabaseClient.storage.from('images').remove([`postimages/${file.name}`]);
+      const { data, error } = await supabaseClient.storage.from('images').remove([`postimages/${file}`]);
       if (error) {
         throw new Error(error);
       } return data;
