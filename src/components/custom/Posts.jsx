@@ -19,8 +19,9 @@ const Posts = () => {
         dispatch(setLoading(false));
       })
       .catch(error => {
-        dispatch(setLoading(false));
-        toast(error);
+        if (error) {
+          dispatch(setLoading(false));
+        }
       });
   }, []);
 
@@ -33,11 +34,11 @@ const Posts = () => {
           <h2 className='font-bold text-3xl mb-2'>Recent Blogs</h2>
           <div className='flex flex-wrap justify-evenly gap-3'>
             {isLoading && <p>Loading...</p>}
-            {(allPosts && !isLoading) && <>
-              {allPosts.slice(0, 6).map(post => (
-                <Card key={post?.slug} post={post} />
-              ))}
-            </>}
+            {(allPosts && !isLoading) && (<>
+              {allPosts.slice(0, 6).map(post => {
+                return <Card key={post?.slug} post={post} />
+              })}
+            </>)}
           </div>
           {allPosts.length >= 10 && (
             <Link to='/blogs'>
